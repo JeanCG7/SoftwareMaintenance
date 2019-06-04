@@ -39,7 +39,6 @@ export class UserService {
     if (likesParam === 'Likees') {
       params = params.append('Likees', 'true');
     }
-
     return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params})
       .pipe(
         map(response => {
