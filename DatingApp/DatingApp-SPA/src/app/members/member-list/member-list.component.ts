@@ -25,11 +25,12 @@ export class MemberListComponent implements OnInit {
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
     this.userParams.orderBy = 'lastActive';
-    
+
     this.route.data.subscribe(data => {
       this.users = data['users'].result;
       this.users = this.users.filter(u => u.gender === this.userParams.gender);
       this.pagination = data['users'].pagination;
+      this.loadUsers();
     });
   }
 
@@ -46,7 +47,7 @@ export class MemberListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
+    this.userService.getUsers(this.pagination.currentPage, 12, this.userParams)
       .subscribe((res: PaginatedResult<User[]>) => {
         this.users = res.result;
         this.pagination = res.pagination;
